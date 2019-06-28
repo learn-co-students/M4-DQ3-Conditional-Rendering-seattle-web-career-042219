@@ -4,6 +4,34 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
 
+  constructor() {
+    super() 
+    this.state = {
+      selection: 'profile'
+    }
+  }
+
+  handleMenuChange = (event) => {
+    let type = event.target.id
+    this.setState({
+      selection: type
+    })
+  }
+
+  renderState = () =>  {
+    if(this.state.selection === 'photo') {
+      return <Photos/>
+    } else if (this.state.selection === 'cocktail') {
+      return <Cocktails/>
+    } else if (this.state.selection === 'pokemon') {
+      return <Pokemon/>
+    } else {
+      return <Profile/>
+    }
+  }
+
+
+
 
   render() {
 
@@ -13,12 +41,11 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
 
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar onMenuChange={this.handleMenuChange}/>
+        {this.renderState() }
       </div>
     )
   }
