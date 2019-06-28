@@ -4,6 +4,20 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
 
+  constructor() {
+    super()
+    this.state = {
+      selected: "profile"
+    }
+  }
+ 
+
+
+  changeDisplay = (value) => {
+    this.setState({
+      selected: value
+    })
+  }
 
   render() {
 
@@ -13,11 +27,24 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
+    let selectedDisplay = this.state.selected
+    let detailsToDisplay;
+
+    
+    if (selectedDisplay === "profile") {
+       detailsToDisplay =  <Profile/>
+    } else if (selectedDisplay === "photo") {
+      detailsToDisplay = <Photos/>
+    } else if (selectedDisplay === "cocktail") {
+      detailsToDisplay = <Cocktails/>
+    } else if (selectedDisplay === "pokemon") {
+      detailsToDisplay = <Pokemon/>
+    }
+  
 
     return (
       <div>
-        <MenuBar />
+        <MenuBar onChangeDisplay={this.changeDisplay} selected={this.state.selected}/>
         {detailsToDisplay}
       </div>
     )
